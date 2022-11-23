@@ -23,19 +23,25 @@ class ItemButton extends StatelessWidget {
         onTap();
       },
       child: Container(
+        margin: const EdgeInsets.all(8),
+        constraints: const BoxConstraints(
+          minWidth: 100,
+          maxWidth: 300,
+        ),
         padding: const EdgeInsets.all(5),
         decoration: customBoxDecoration(
           color: Colors.white,
           outlineColor: cOutline1,
         ),
         child: Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Expanded(
               flex: 1,
               child: CustomCachedImageContainer(imageURL: avatarDir ?? ''),
             ),
             const SizedBox(width: 5),
-            Expanded(
+            Flexible(
               flex: 2,
               child: Padding(
                 padding: const EdgeInsets.all(5),

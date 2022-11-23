@@ -3,13 +3,16 @@ import 'package:intl/intl.dart';
 import 'package:pp_cashier/consts/theme.const.dart';
 import 'package:pp_cashier/controllers/cart.controller.dart';
 import 'package:flutter/material.dart';
+import 'package:pp_cashier/controllers/home.controller.dart';
+import 'package:pp_cashier/controllers/transaction.controller.dart';
 import 'package:pp_cashier/uis/item/cart-item.widget.dart';
 import 'package:pp_cashier/uis/item/member-search.dialog.dart';
 
 class CartSidebar extends GetView<CartController> {
   CartSidebar({Key? key}) : super(key: key);
   final cf = NumberFormat.currency(symbol: 'Rp', decimalDigits: 0);
-
+  final homeCtrl = Get.find<HomeController>();
+  final trxCtrl = Get.find<TransactionController>();
   @override
   Widget build(BuildContext context) {
     return Obx(
@@ -105,14 +108,54 @@ class CartSidebar extends GetView<CartController> {
             Padding(
               padding: const EdgeInsets.all(8),
               child: InkWell(
-                onTap: () {},
+                onTap: () {
+                  if (controller.itemsOnCart.isNotEmpty &&
+                      controller.selectedMember != null) {
+                    showDialog(
+                        context: context,
+                        builder: (ctx) {
+                          return AlertDialog(
+                            title: const Text('Tambah Pesanan'),
+                            content:
+                                Text('${controller.itemsOnCart.length} item'),
+                            actions: [
+                              TextButton(
+                                  onPressed: () async {
+                                    await trxCtrl.createNewOrder({
+                                      'memberId': controller.selectedMember?.id,
+                                      'data': controller.itemsOnCart
+                                          .map((e) => {
+                                                'itemId': e.id,
+                                                'itemQuantity': e.qty,
+                                              })
+                                          .toList(),
+                                    });
+                                    controller.clearSelectedMember();
+                                    homeCtrl.cancelShopping();
+                                    controller.cancelShopping();
+                                    Navigator.pop(context);
+                                  },
+                                  child: const Text('Ya')),
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: const Text('Tidak')),
+                            ],
+                          );
+                        });
+                  }
+                },
                 child: Obx(() => Container(
                       padding: const EdgeInsets.symmetric(vertical: 13),
                       alignment: Alignment.center,
                       width: 500,
                       decoration: customBoxDecoration(
                         color: cBlue1.withOpacity(
-                            (controller.itemsOnCart.isEmpty) ? 0.2 : 1),
+                            (controller.itemsOnCart.isNotEmpty &&
+                                    controller.selectedMember != null)
+                                ? 1
+                                : 0.2),
                       ),
                       child: Text(
                         'Buat Pesanan',

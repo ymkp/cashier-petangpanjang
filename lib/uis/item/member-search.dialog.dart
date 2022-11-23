@@ -13,8 +13,9 @@ class MemberSearchDialog extends GetView<CartController> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      child: SizedBox(
-        width: MediaQuery.of(context).size.width / 2,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 15),
+        width: MediaQuery.of(context).size.width / 1.5,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -25,10 +26,14 @@ class MemberSearchDialog extends GetView<CartController> {
                 fontSize: 20,
               ),
             ),
+            const SizedBox(height: 15),
+            Divider(color: cBlue1.withOpacity(0.5)),
             const SizedBox(height: 30),
             Obx(
               () => Text(
-                controller.searchedModel?.name ?? 'Belum ada member',
+                (controller.searchedModel != null)
+                    ? '${controller.searchedModel!.name}'
+                    : 'Belum ada member',
                 style: kTextBold600.copyWith(
                   fontSize: 20,
                   color: cBlue1
@@ -37,29 +42,42 @@ class MemberSearchDialog extends GetView<CartController> {
               ),
             ),
             const SizedBox(height: 30),
-            TextFormField(
-              autofocus: true,
-              controller: _hiddenText,
-              focusNode: _hiddenFocus,
-              obscureText: true,
-              decoration: InputDecoration(
+            Padding(
+              padding: const EdgeInsets.all(8),
+              child: TextFormField(
+                autofocus: true,
+                controller: _hiddenText,
+                focusNode: _hiddenFocus,
+                obscureText: true,
+                decoration: InputDecoration(
+                  hintStyle:
+                      kTextRegular400.copyWith(color: cBlue1.withOpacity(0.5)),
                   hintText: 'Dekatkan kartu atau ketik nomor kartu',
                   border: InputBorder.none,
-                  icon: const Icon(Icons.cast_rounded),
+                  icon: Icon(
+                    Icons.cast_rounded,
+                    color: cBlue1.withOpacity(0.4),
+                  ),
                   suffixIcon: IconButton(
-                      onPressed: () {
-                        _hiddenText.clear();
-                      },
-                      icon: const Icon(
-                        Icons.clear,
-                        color: cRed1,
-                      ))),
-              onFieldSubmitted: (String s) {
-                controller.getSearchedMember(s);
-                _hiddenText.clear();
-                Logg.loggerprint('submitted : $s');
-              },
+                    onPressed: () {
+                      _hiddenText.clear();
+                    },
+                    icon: const Icon(
+                      Icons.clear,
+                      color: cRed1,
+                    ),
+                  ),
+                ),
+                onFieldSubmitted: (String s) {
+                  controller.getSearchedMember(s);
+
+                  _hiddenText.clear();
+                  _hiddenFocus.requestFocus();
+                  Logg.loggerprint('submitted : $s');
+                },
+              ),
             ),
+            const SizedBox(height: 30),
             Padding(
               padding: const EdgeInsets.all(8),
               child: InkWell(

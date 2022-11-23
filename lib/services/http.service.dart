@@ -59,6 +59,30 @@ class HTTPService extends GetxService {
     return _processResponse(res);
   }
 
+  Future<dynamic> patch({
+    required String route,
+    Map<String, String>? header,
+    Map<String, dynamic>? body,
+    Map<String, dynamic>? query,
+  }) async {
+    Map<String, String> h = {
+      'Content-Type': 'application/json',
+    };
+    if (header != null && header.isNotEmpty) {
+      h.addAll(header);
+    }
+    final q = query ?? {};
+    Logg.loggerprint(body.toString());
+    final res = await http
+        .patch(
+          Uri.parse('$url$route${getQueryStringFromMap(q)}'),
+          headers: h,
+          body: jsonEncode(body),
+        )
+        .timeout(const Duration(seconds: timeoutSeconds));
+    return _processResponse(res);
+  }
+
   /// process resopnse, try to catch known errors
   dynamic _processResponse(http.Response response) {
     Logg.loggerprint('${response.request!.url} ${response.request?.method}');

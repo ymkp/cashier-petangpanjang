@@ -1,3 +1,5 @@
+import 'package:another_flushbar/flushbar.dart';
+import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:get/get.dart';
 import 'package:pp_cashier/controllers/home.controller.dart';
 import 'package:pp_cashier/models/item-category.model.dart';
@@ -7,6 +9,7 @@ import 'package:pp_cashier/models/member.model.dart';
 import 'package:pp_cashier/services/http.service.dart';
 import 'package:pp_cashier/consts/url.const.dart' as url;
 import 'package:pp_cashier/utils/logger.dart';
+// import 'package:pp_cashier/utils/logger.dart';
 
 class CartController extends GetxController {
   final _http = Get.find<HTTPService>();
@@ -42,7 +45,6 @@ class CartController extends GetxController {
   }
 
   clearSearchedMember() {
-    Logg.loggerprint('clear search member');
     _searchedModel.value = null;
   }
 
@@ -85,7 +87,13 @@ class CartController extends GetxController {
   }
 
   getSearchedMember(String cardNo) async {
-    _searchedModel.value = await fetchMemberByCardNo(cardNo);
+    try {
+      _searchedModel.value = await fetchMemberByCardNo(cardNo);
+    } catch (err) {
+      Logg.loggerprint('get searched member ', error: err.toString());
+      _searchedModel.value = null;
+      // FlushbarHelper.createError(message: err.toString());
+    }
   }
 
   getAllCategories() async {

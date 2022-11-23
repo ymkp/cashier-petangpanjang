@@ -18,6 +18,7 @@ class MainAppBar extends GetView<HomeController> {
           controller.cancelShopping();
           cartCtrl.cancelShopping();
         } else {
+          controller.goMenu();
           controller.startShopping();
         }
       },
@@ -47,8 +48,8 @@ class MainAppBar extends GetView<HomeController> {
   }) {
     return InkWell(
       onTap: () {
-        Logg.loggerprint(text);
         onTap();
+        controller.cancelShopping();
       },
       child: Column(
         children: [

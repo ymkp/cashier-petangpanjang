@@ -18,6 +18,7 @@ class ItemMenuSectionContainer extends GetView<CartController> {
       ),
       child: Obx(
         () => ListView(
+          padding: const EdgeInsets.all(8),
           shrinkWrap: true,
           children: controller.categories
               .map((c) => Column(
@@ -37,28 +38,41 @@ class ItemMenuSectionContainer extends GetView<CartController> {
                                 ),
                               ),
                             )
-                          : GridView.count(
-                              crossAxisCount: 3,
-                              padding: const EdgeInsets.only(bottom: 15),
-                              shrinkWrap: true,
-                              childAspectRatio: 3,
-                              mainAxisSpacing: 10,
-                              crossAxisSpacing: 10,
+                          : Wrap(
                               children: c.items
-                                  .map(
-                                    (i) => ItemButton(
-                                      onTap: () {
-                                        if (controller.isCartMode) {
-                                          controller.addToCart(i);
-                                        }
-                                      },
-                                      name: i.name,
-                                      price: cf.format(i.price),
-                                      avatarDir: i.avatarDir,
-                                    ),
-                                  )
-                                  .toList(),
-                            ),
+                                  .map((item) => ItemButton(
+                                        name: item.name,
+                                        price: cf.format(item.price),
+                                        avatarDir: item.avatarDir,
+                                        onTap: () {
+                                          if (controller.isCartMode) {
+                                            controller.addToCart(item);
+                                          }
+                                        },
+                                      ))
+                                  .toList()),
+                      // GridView.count(
+                      //     crossAxisCount: (controller.isCartMode) ? 3 : 4,
+                      //     padding: const EdgeInsets.only(bottom: 15),
+                      //     shrinkWrap: true,
+                      //     childAspectRatio: 2.5,
+                      //     mainAxisSpacing: 10,
+                      //     crossAxisSpacing: 10,
+                      //     children: c.items
+                      //         .map(
+                      //           (i) => ItemButton(
+                      //             onTap: () {
+                      //               if (controller.isCartMode) {
+                      //                 controller.addToCart(i);
+                      //               }
+                      //             },
+                      //             name: i.name,
+                      //             price: cf.format(i.price),
+                      //             avatarDir: i.avatarDir,
+                      //           ),
+                      //         )
+                      //         .toList(),
+                      //   ),
                       const SizedBox(height: 20),
                     ],
                   ))

@@ -2,6 +2,8 @@
 
 const String _member = '/member';
 
+const String memberGetActive = '$_member/active';
+
 /// POST
 const String memberCreateNew = '$_member/new';
 
@@ -26,7 +28,22 @@ const String itemGetCategoriesAndMenus = '$_item/menu/category/all';
 const String itemGetMenuByCategory = '$_item/menu/category/';
 // ? ---------------------------------------------end of ITEM
 
+// ? ---------------------------------------------start of TRANSACTION
+const String _transaction = '/transaction';
 
+/// POST
+const String transactionCreate = '$_transaction/new';
 
-// ? ---------------------------------------------end of MEMBER
-// ? ---------------------------------------------end of MEMBER
+/// GET
+const String transactionGetALl = '$_transaction/all';
+
+/// GET
+const String transactionGetMembers = '$_transaction/member/';
+
+/// PATCH
+const String transactionEdit = '$_transaction/edit';
+
+/// PATCH
+const String transactionEditMember = '$_transaction/edit/member';
+
+// ? ---------------------------------------------end of TRANSACTION

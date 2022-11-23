@@ -1,9 +1,9 @@
-import 'package:pp_cashier/models/item.model.dart';
 import 'package:pp_cashier/models/member.model.dart';
+import 'package:pp_cashier/models/transaction-item.model.dart';
 
 class TransactionModel {
   int id;
-  List<ItemModel> items;
+  List<TransactionItemModel> items;
   int price;
   int tax;
   int taxPctg;
@@ -11,7 +11,7 @@ class TransactionModel {
   int servicePctg;
   int total;
   MemberModel? member;
-  String closedAt;
+  String? closedAt;
   String createdAt;
 
   TransactionModel({
@@ -24,15 +24,17 @@ class TransactionModel {
     required this.servicePctg,
     required this.total,
     this.member,
-    required this.closedAt,
+    this.closedAt,
     required this.createdAt,
   });
 
   factory TransactionModel.fromJson(Map<String, dynamic> json) {
     return TransactionModel(
       id: json['id'],
-      items: json['items']
-          ? (json['items'] as List).map((e) => ItemModel.fromJson(e)).toList()
+      items: json['items'] != null
+          ? (json['items'] as List)
+              .map((e) => TransactionItemModel.fromJson(e))
+              .toList()
           : [],
       price: json['price'] ?? 0,
       tax: json['tax'] ?? 0,
@@ -40,9 +42,10 @@ class TransactionModel {
       service: json['service'] ?? 0,
       servicePctg: json['servicePctg'] ?? 0,
       total: json['total'] ?? 0,
-      closedAt: json['closedAt'] ?? '',
+      closedAt: json['closedAt'],
       createdAt: json['createdAt'] ?? '',
-      member: json['member'] ? MemberModel.fromJson(json['member']) : null,
+      member:
+          json['member'] != null ? MemberModel.fromJson(json['member']) : null,
     );
   }
 }

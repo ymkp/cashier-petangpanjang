@@ -15,7 +15,7 @@ class MainSection extends GetView<HomeController> {
       if (controller.appbarState == AppBarState.menu) {
         return ItemMenuSectionContainer();
       } else if (controller.appbarState == AppBarState.transaction) {
-        return const TransactionSection();
+        return TransactionSection();
       } else if (controller.appbarState == AppBarState.settings) {
         return const SettingSection();
       } else {

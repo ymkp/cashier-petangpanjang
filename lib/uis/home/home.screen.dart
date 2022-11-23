@@ -19,12 +19,12 @@ class HomeScreen extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children: [
                   // main section
-                  Expanded(
+                  const Expanded(
                     child: MainSection(),
                   ),
-                  SizedBox(width: 10),
+
                   // sidebar
                   MainSidebar()
                 ],

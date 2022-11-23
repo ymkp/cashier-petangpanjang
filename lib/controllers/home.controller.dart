@@ -5,10 +5,10 @@ enum AppBarState { dashboard, menu, transaction, settings }
 enum CartModeState { on, off }
 
 class HomeController extends GetxController {
-  final Rx<AppBarState> _appbarState = AppBarState.menu.obs;
+  final Rx<AppBarState> _appbarState = AppBarState.dashboard.obs;
   AppBarState get appbarState => _appbarState.value;
 
-  final Rx<CartModeState> _cartModeState = CartModeState.on.obs;
+  final Rx<CartModeState> _cartModeState = CartModeState.off.obs;
   CartModeState get cartModeState => _cartModeState.value;
   bool get isCartMode => _cartModeState.value == CartModeState.on;
 
