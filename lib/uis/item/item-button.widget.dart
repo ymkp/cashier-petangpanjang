@@ -38,7 +38,11 @@ class ItemButton extends StatelessWidget {
           children: [
             Expanded(
               flex: 1,
-              child: CustomCachedImageContainer(imageURL: avatarDir ?? ''),
+              child: CustomCachedImageContainer(
+                imageURL: avatarDir ?? '',
+                width: 50,
+                height: 50,
+              ),
             ),
             const SizedBox(width: 5),
             Flexible(

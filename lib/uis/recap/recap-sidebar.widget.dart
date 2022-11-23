@@ -2,15 +2,15 @@ import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/instance_manager.dart';
 import 'package:intl/intl.dart';
 import 'package:pp_cashier/consts/theme.const.dart';
-import 'package:pp_cashier/controllers/cart.controller.dart';
-import 'package:pp_cashier/controllers/transaction.controller.dart';
+import 'package:pp_cashier/controllers/recap.controller.dart';
 import 'package:flutter/material.dart';
+import 'package:pp_cashier/controllers/transaction.controller.dart';
 
-class TransactionSidebar extends GetView<TransactionController> {
-  TransactionSidebar({Key? key}) : super(key: key);
+class RecapSidebar extends GetView<RecapController> {
+  RecapSidebar({Key? key}) : super(key: key);
 
   final cf = NumberFormat.currency(symbol: 'Rp', decimalDigits: 0);
-  final cartCtrl = Get.find<CartController>();
+  final trxCtrl = Get.find<TransactionController>();
 
   @override
   Widget build(BuildContext context) {
@@ -75,13 +75,6 @@ class TransactionSidebar extends GetView<TransactionController> {
                               children: controller.selectedMember!.transactions
                                   .map(
                                     (trx) => Container(
-                                      decoration: customBoxDecoration(
-                                        color: (trx.id ==
-                                                controller
-                                                    .selectedTransaction?.id)
-                                            ? cBlue2.withOpacity(0.1)
-                                            : Colors.white,
-                                      ),
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 15, vertical: 5),
                                       margin: const EdgeInsets.only(bottom: 8),
@@ -311,7 +304,7 @@ class TransactionSidebar extends GetView<TransactionController> {
                                             actions: [
                                               TextButton(
                                                   onPressed: () async {
-                                                    await controller
+                                                    await trxCtrl
                                                         .payTransaction(
                                                       trxId: controller
                                                           .selectedMember!

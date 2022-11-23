@@ -8,11 +8,11 @@ version: 1.0.0+1
 environment:
   sdk: '>=2.18.4 <3.0.0'
 dependencies:
-  another_flushbar:
   cached_network_image:
   flutter:
     sdk: flutter
   flutter_dotenv: ^5.0.2
+  fluttertoast: ^8.1.1
   get: ^4.6.5
   http:
   intl:

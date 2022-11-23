@@ -4,6 +4,8 @@ import 'package:pp_cashier/controllers/member.controller.dart';
 import 'package:flutter/material.dart';
 
 class CreateMemberDialog extends GetView<MemberController> {
+  CreateMemberDialog({Key? key}) : super(key: key);
+
   final TextEditingController _nameTxtCtrl = TextEditingController();
   final FocusNode _nameFocus = FocusNode();
   final TextEditingController _phoneTxtCtrl = TextEditingController();
@@ -56,7 +58,7 @@ class CreateMemberDialog extends GetView<MemberController> {
                 decoration: InputDecoration(
                   hintStyle:
                       kTextRegular400.copyWith(color: cBlue1.withOpacity(0.5)),
-                  hintText: 'Nomor pelanggang',
+                  hintText: 'Nomor telepon',
                   border: InputBorder.none,
                   icon: Icon(
                     Icons.phone,

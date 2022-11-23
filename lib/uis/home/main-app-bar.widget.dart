@@ -3,11 +3,14 @@ import 'package:get/get.dart';
 import 'package:pp_cashier/consts/theme.const.dart';
 import 'package:pp_cashier/controllers/home.controller.dart';
 import 'package:pp_cashier/controllers/cart.controller.dart';
-import 'package:pp_cashier/utils/logger.dart';
+import 'package:pp_cashier/controllers/member.controller.dart';
+import 'package:pp_cashier/controllers/recap.controller.dart';
 
 class MainAppBar extends GetView<HomeController> {
   MainAppBar({Key? key}) : super(key: key);
   final cartCtrl = Get.find<CartController>();
+  final memberCtrl = Get.find<MemberController>();
+  final recapCtrl = Get.find<RecapController>();
 
   buildMainCTAButton(
     bool trueCondition,
@@ -93,10 +96,12 @@ class MainAppBar extends GetView<HomeController> {
                   buildButton(
                     onTap: () {
                       controller.goDashboard();
+                      memberCtrl.getActiveMembers();
+                      memberCtrl.getAvailableCards();
                     },
                     trueCondition:
-                        controller.appbarState == AppBarState.dashboard,
-                    text: 'DASHBOARD',
+                        controller.appbarState == AppBarState.members,
+                    text: 'MEMBER',
                   ),
                   buildButton(
                     onTap: () {
@@ -112,6 +117,14 @@ class MainAppBar extends GetView<HomeController> {
                     trueCondition:
                         controller.appbarState == AppBarState.transaction,
                     text: 'TRANSACTION',
+                  ),
+                  buildButton(
+                    onTap: () {
+                      controller.goToRecap();
+                      recapCtrl.getCompletedMembers();
+                    },
+                    trueCondition: controller.appbarState == AppBarState.recap,
+                    text: 'RECAP',
                   ),
                   buildButton(
                     onTap: () {

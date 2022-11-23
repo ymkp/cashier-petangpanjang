@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pp_cashier/consts/theme.const.dart';
 import 'package:pp_cashier/controllers/cart.controller.dart';
-import 'package:pp_cashier/utils/logger.dart';
+import 'package:pp_cashier/utils/logger.helper.dart';
 
 class MemberSearchDialog extends GetView<CartController> {
   MemberSearchDialog({Key? key}) : super(key: key);
@@ -32,7 +32,7 @@ class MemberSearchDialog extends GetView<CartController> {
             Obx(
               () => Text(
                 (controller.searchedModel != null)
-                    ? '${controller.searchedModel!.name}'
+                    ? controller.searchedModel!.name
                     : 'Belum ada member',
                 style: kTextBold600.copyWith(
                   fontSize: 20,
@@ -73,7 +73,7 @@ class MemberSearchDialog extends GetView<CartController> {
 
                   _hiddenText.clear();
                   _hiddenFocus.requestFocus();
-                  Logg.loggerprint('submitted : $s');
+                  LoggerHelper.log('submitted : $s');
                 },
               ),
             ),

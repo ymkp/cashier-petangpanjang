@@ -1,11 +1,11 @@
 import 'package:get/get.dart';
 
-enum AppBarState { dashboard, menu, transaction, settings }
+enum AppBarState { members, menu, transaction, recap, settings }
 
 enum CartModeState { on, off }
 
 class HomeController extends GetxController {
-  final Rx<AppBarState> _appbarState = AppBarState.dashboard.obs;
+  final Rx<AppBarState> _appbarState = AppBarState.transaction.obs;
   AppBarState get appbarState => _appbarState.value;
 
   final Rx<CartModeState> _cartModeState = CartModeState.off.obs;
@@ -15,7 +15,7 @@ class HomeController extends GetxController {
   // ? ----------------------------------appbarStates
 
   goDashboard() {
-    _appbarState.value = AppBarState.dashboard;
+    _appbarState.value = AppBarState.members;
   }
 
   goMenu() {
@@ -28,6 +28,10 @@ class HomeController extends GetxController {
 
   goToSettings() {
     _appbarState.value = AppBarState.settings;
+  }
+
+  goToRecap() {
+    _appbarState.value = AppBarState.recap;
   }
 
   startShopping() {

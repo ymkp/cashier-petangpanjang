@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pp_cashier/uis/home/main-app-bar.widget.dart';
 import 'package:pp_cashier/uis/home/main-section.widget.dart';
-import 'package:pp_cashier/uis/home/main-sidebar.widget.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -13,22 +12,10 @@ class HomeScreen extends StatelessWidget {
         children: [
           MainAppBar(),
           // MainSection(),
-          Expanded(
+          const Expanded(
             child: Padding(
-              padding: const EdgeInsets.all(15),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // main section
-                  const Expanded(
-                    child: MainSection(),
-                  ),
-
-                  // sidebar
-                  MainSidebar()
-                ],
-              ),
+              padding: EdgeInsets.all(15),
+              child: MainSection(),
             ),
           ),
         ],

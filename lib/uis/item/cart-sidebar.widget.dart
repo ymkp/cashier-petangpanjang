@@ -15,10 +15,13 @@ class CartSidebar extends GetView<CartController> {
   final trxCtrl = Get.find<TransactionController>();
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () => Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
+    return Container(
+      width: (MediaQuery.of(context).size.width / 3) > 450
+          ? 450
+          : MediaQuery.of(context).size.width / 3,
+      padding: const EdgeInsets.all(8.0),
+      child: Obx(
+        () => Column(
           children: [
             Container(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -112,38 +115,40 @@ class CartSidebar extends GetView<CartController> {
                   if (controller.itemsOnCart.isNotEmpty &&
                       controller.selectedMember != null) {
                     showDialog(
-                        context: context,
-                        builder: (ctx) {
-                          return AlertDialog(
-                            title: const Text('Tambah Pesanan'),
-                            content:
-                                Text('${controller.itemsOnCart.length} item'),
-                            actions: [
-                              TextButton(
-                                  onPressed: () async {
-                                    await trxCtrl.createNewOrder({
-                                      'memberId': controller.selectedMember?.id,
-                                      'data': controller.itemsOnCart
-                                          .map((e) => {
-                                                'itemId': e.id,
-                                                'itemQuantity': e.qty,
-                                              })
-                                          .toList(),
-                                    });
-                                    controller.clearSelectedMember();
-                                    homeCtrl.cancelShopping();
-                                    controller.cancelShopping();
-                                    Navigator.pop(context);
-                                  },
-                                  child: const Text('Ya')),
-                              TextButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: const Text('Tidak')),
-                            ],
-                          );
-                        });
+                      context: context,
+                      builder: (ctx) {
+                        return AlertDialog(
+                          title: const Text('Tambah Pesanan'),
+                          content:
+                              Text('${controller.itemsOnCart.length} item'),
+                          actions: [
+                            TextButton(
+                                onPressed: () {
+                                  trxCtrl.createNewOrder({
+                                    'memberId': controller.selectedMember?.id,
+                                    'data': controller.itemsOnCart
+                                        .map((e) => {
+                                              'itemId': e.id,
+                                              'itemQuantity': e.qty,
+                                            })
+                                        .toList(),
+                                  });
+                                  controller.clearSelectedMember();
+                                  homeCtrl.cancelShopping();
+                                  controller.cancelShopping();
+                                  // return;
+                                  Navigator.of(context).pop();
+                                },
+                                child: const Text('Ya')),
+                            TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: const Text('Tidak')),
+                          ],
+                        );
+                      },
+                    );
                   }
                 },
                 child: Obx(() => Container(

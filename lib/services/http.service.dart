@@ -1,16 +1,18 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/state_manager.dart';
-import 'package:pp_cashier/utils/logger.dart';
+import 'package:pp_cashier/utils/logger.helper.dart';
 import 'package:pp_cashier/utils/string.helper.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+
+import 'package:pp_cashier/utils/toast.helper.dart';
 
 const int timeoutSeconds = 30;
 
 class HTTPService extends GetxService {
   HTTPService() {
     url = dotenv.env['URL'] ?? '';
-    Logg.loggerprint('http service initiated : $url');
+    LoggerHelper.log('http service initiated : $url');
   }
 
   late final String url;
@@ -72,7 +74,7 @@ class HTTPService extends GetxService {
       h.addAll(header);
     }
     final q = query ?? {};
-    Logg.loggerprint(body.toString());
+    LoggerHelper.log(body.toString());
     final res = await http
         .patch(
           Uri.parse('$url$route${getQueryStringFromMap(q)}'),
@@ -85,8 +87,8 @@ class HTTPService extends GetxService {
 
   /// process resopnse, try to catch known errors
   dynamic _processResponse(http.Response response) {
-    Logg.loggerprint('${response.request!.url} ${response.request?.method}');
-    Logg.loggerprint('${response.statusCode} : ${response.body}');
+    LoggerHelper.log('${response.request!.url} ${response.request?.method}');
+    LoggerHelper.log('${response.statusCode} : ${response.body}');
 
     final res = response.body == 'ok' ? {} : json.decode(response.body);
     if ([200, 201].contains(response.statusCode)) {
@@ -97,14 +99,16 @@ class HTTPService extends GetxService {
       try {
         errMsg = res['error']['message'];
       } catch (e) {
-        Logg.loggerprint('failed to catch error msg', error: e);
+        LoggerHelper.log('failed to catch error msg', error: e);
       }
       switch (errMsg) {
         case 'Not Found':
           thrownMsg = 'Tidak ditemukan';
+          ToastHelper.error(thrownMsg);
           break;
         default:
           thrownMsg = errMsg;
+          ToastHelper.error(thrownMsg);
           break;
       }
       throw thrownMsg;

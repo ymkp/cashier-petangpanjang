@@ -2,7 +2,14 @@
 
 const String _member = '/member';
 
-const String memberGetActive = '$_member/active';
+/// GET
+const String memberGetActive = '$_member/members/active';
+
+/// GET
+const String memberGetCompleted = '$_member/members/completed';
+
+/// GET
+const String memberGetAvailableCards = '$_member/card/available';
 
 /// POST
 const String memberCreateNew = '$_member/new';
@@ -34,11 +41,21 @@ const String _transaction = '/transaction';
 /// POST
 const String transactionCreate = '$_transaction/new';
 
+/// POST
+const String transactionPay = '$_transaction/pay';
+
 /// GET
 const String transactionGetALl = '$_transaction/all';
 
 /// GET
 const String transactionGetMembers = '$_transaction/member/';
+
+/// GET '$_transaction/member-complete/":cardNo'
+const String transactionCompleteGetMemberWithCardNo =
+    '$_transaction/member-complete/';
+
+const String transactionCompleteGetMemberWithMemberId =
+    '$_transaction/member-complete-id/';
 
 /// PATCH
 const String transactionEdit = '$_transaction/edit';

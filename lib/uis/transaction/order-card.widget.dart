@@ -50,28 +50,6 @@ class OrderCard extends GetView<TransactionController> {
                   style: kTextBold600.copyWith(fontSize: 18, color: cBlue1),
                 ),
                 const SizedBox(height: 8),
-                (trx.member == null)
-                    ? Text(
-                        'Tanpa Member',
-                        style: kTextRegular400.copyWith(
-                          color: cBlue1.withOpacity(0.4),
-                          fontSize: 11,
-                        ),
-                      )
-                    : Container(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 8, horizontal: 20),
-                        decoration: customBoxDecoration(
-                          color: Colors.yellow.shade100,
-                        ),
-                        child: Text(
-                          '${trx.member!.name} :',
-                          style: kTextBold600.copyWith(
-                            color: Colors.black,
-                            fontSize: 11,
-                          ),
-                        ),
-                      ),
               ]),
             ),
             trx.closedAt == null
