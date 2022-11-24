@@ -20,7 +20,7 @@ class MemberSearchDialog extends GetView<CartController> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'Cari Member Berdasar Kartu',
+              'Cari Pelanggan Berdasar Kartu',
               style: kTextBold600.copyWith(
                 color: cBlue1,
                 fontSize: 20,
@@ -33,7 +33,7 @@ class MemberSearchDialog extends GetView<CartController> {
               () => Text(
                 (controller.searchedModel != null)
                     ? controller.searchedModel!.name
-                    : 'Belum ada member',
+                    : 'Belum ada pelanggan',
                 style: kTextBold600.copyWith(
                   fontSize: 20,
                   color: cBlue1
@@ -96,7 +96,7 @@ class MemberSearchDialog extends GetView<CartController> {
                             (controller.searchedModel == null) ? 0.2 : 1),
                       ),
                       child: Text(
-                        'Pilih Member',
+                        'Pilih Pelanggan',
                         style: kTextBold600.copyWith(
                           color: Colors.white,
                         ),

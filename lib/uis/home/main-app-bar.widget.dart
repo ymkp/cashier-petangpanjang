@@ -101,14 +101,14 @@ class MainAppBar extends GetView<HomeController> {
                     },
                     trueCondition:
                         controller.appbarState == AppBarState.members,
-                    text: 'MEMBER',
+                    text: 'REGISTRASI',
                   ),
                   buildButton(
                     onTap: () {
                       controller.goMenu();
                     },
                     trueCondition: controller.appbarState == AppBarState.menu,
-                    text: 'MENU',
+                    text: 'RESTO',
                   ),
                   buildButton(
                     onTap: () {
@@ -116,7 +116,7 @@ class MainAppBar extends GetView<HomeController> {
                     },
                     trueCondition:
                         controller.appbarState == AppBarState.transaction,
-                    text: 'TRANSACTION',
+                    text: 'TRANSAKSI',
                   ),
                   buildButton(
                     onTap: () {
@@ -126,14 +126,14 @@ class MainAppBar extends GetView<HomeController> {
                     trueCondition: controller.appbarState == AppBarState.recap,
                     text: 'RECAP',
                   ),
-                  buildButton(
-                    onTap: () {
-                      controller.goToSettings();
-                    },
-                    trueCondition:
-                        controller.appbarState == AppBarState.settings,
-                    text: 'SETTINGS',
-                  ),
+                  // buildButton(
+                  //   onTap: () {
+                  //     controller.goToSettings();
+                  //   },
+                  //   trueCondition:
+                  //       controller.appbarState == AppBarState.settings,
+                  //   text: 'SETTINGS',
+                  // ),
                 ],
               ),
               buildMainCTAButton(

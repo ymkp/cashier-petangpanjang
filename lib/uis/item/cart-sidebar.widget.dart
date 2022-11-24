@@ -57,7 +57,8 @@ class CartSidebar extends GetView<CartController> {
                             color: cYellow1,
                           ),
                           child: Text(
-                            controller.selectedMember?.name ?? 'Tambah Member',
+                            controller.selectedMember?.name ??
+                                'Pilih Pelanggan',
                             style: kTextBold600.copyWith(
                               color: Colors.white,
                             ),

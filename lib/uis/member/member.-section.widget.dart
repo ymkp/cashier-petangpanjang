@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:get/get.dart';
 import 'package:pp_cashier/consts/theme.const.dart';
+import 'package:pp_cashier/controllers/home.controller.dart';
 import 'package:pp_cashier/controllers/member.controller.dart';
+import 'package:pp_cashier/controllers/transaction.controller.dart';
 import 'package:pp_cashier/uis/member/card-list-sidebar.widget.dart';
 import 'package:pp_cashier/uis/member/create-member.dialog.dart';
 import 'package:pp_cashier/uis/member/member-card.widget.dart';
 
 class MemberSection extends GetView<MemberController> {
-  const MemberSection({Key? key}) : super(key: key);
+  MemberSection({Key? key}) : super(key: key);
+
+  final homeCtrl = Get.find<HomeController>();
+  final trxCtrl = Get.find<TransactionController>();
 
   @override
   Widget build(BuildContext context) {
@@ -21,12 +26,13 @@ class MemberSection extends GetView<MemberController> {
               color: Colors.white,
             ),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Daftar Member',
+                      'Daftar Pelanggan',
                       style: kTextBold600.copyWith(
                         color: cBlue1,
                         fontSize: 18,
@@ -47,7 +53,7 @@ class MemberSection extends GetView<MemberController> {
                           color: cYellow1,
                         ),
                         child: Text(
-                          'Daftarkan Member Baru',
+                          'Daftarkan pelanggan Baru',
                           style: kTextBold600.copyWith(
                             color: Colors.white,
                           ),
@@ -62,7 +68,7 @@ class MemberSection extends GetView<MemberController> {
                   () => controller.members.isEmpty
                       ? Center(
                           child: Text(
-                            'Belum ada member aktif',
+                            'Belum ada pelanggan aktif',
                             style: kTextRegular400.copyWith(
                                 color: cBlue1.withOpacity(0.4)),
                           ),
@@ -70,7 +76,14 @@ class MemberSection extends GetView<MemberController> {
                       : Wrap(
                           alignment: WrapAlignment.start,
                           children: controller.members
-                              .map((e) => MemberCard(member: e, onTap: () {}))
+                              .map((e) => MemberCard(
+                                    member: e,
+                                    onTap: () {
+                                      homeCtrl.goTransaction();
+                                      trxCtrl.getTransactionCompleteFromCardNo(
+                                          e.cardNo);
+                                    },
+                                  ))
                               .toList(),
                         ),
                 )),

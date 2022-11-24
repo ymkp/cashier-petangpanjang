@@ -60,7 +60,7 @@ class TransactionSection extends GetView<TransactionController> {
                           color: cYellow1,
                         ),
                         child: Text(
-                          'Pilih Member',
+                          'Pilih Pelanggan',
                           style: kTextBold600.copyWith(
                             color: Colors.white,
                           ),
@@ -79,7 +79,7 @@ class TransactionSection extends GetView<TransactionController> {
                   () => (controller.selectedMember == null)
                       ? Center(
                           child: Text(
-                            'Belum ada member dipilih',
+                            'Belum ada pelanggan dipilih',
                             style: kTextMedium500.copyWith(
                                 color: cBlue1.withOpacity(0.3)),
                           ),

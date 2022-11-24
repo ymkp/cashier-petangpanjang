@@ -20,12 +20,13 @@ class RecapSection extends GetView<RecapController> {
               color: Colors.white,
             ),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Daftar Member Sudah Selesai',
+                      'Daftar Pelanggan Sudah Selesai',
                       style: kTextBold600.copyWith(
                         color: cBlue1,
                         fontSize: 18,
@@ -40,7 +41,7 @@ class RecapSection extends GetView<RecapController> {
                   () => controller.completedMembers.isEmpty
                       ? Center(
                           child: Text(
-                            'Belum ada member selesai',
+                            'Belum ada pelanggan selesai',
                             style: kTextRegular400.copyWith(
                                 color: cBlue1.withOpacity(0.4)),
                           ),

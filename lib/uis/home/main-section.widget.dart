@@ -22,7 +22,7 @@ class MainSection extends GetView<HomeController> {
       } else if (controller.appbarState == AppBarState.recap) {
         return const RecapSection();
       } else {
-        return const MemberSection();
+        return MemberSection();
       }
     });
   }
